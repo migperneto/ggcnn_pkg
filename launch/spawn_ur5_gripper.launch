@@ -31,23 +31,20 @@
 
     <!-- ****************************** -->
 
-    <!-- Load Robotiq Gripper Controller -->
-    <rosparam file="$(find trajectory_pkg)/config/ur5_gripper_controllers.yaml"
-        command="load"/>
+     <!-- Load the controllers-->
 
-    <node name="gripper_controller_spawner" pkg="controller_manager" type="spawner" 
-        output="screen" respawn="false" ns="/ur5"
-        args="gripper_controller"/>    
-
-    <!-- ****************************** -->
-
-    <!-- Load the controllers of the robot-->
-    <rosparam command="load" file="$(find trajectory_pkg)/config/ur5_eff_controllers.yaml"/>
+    <rosparam command="load" file="$(find trajectory_pkg)/config/ur5_gripper_controllers.yaml"/>
 
      <!-- Load the node controller manager-->
     <node name="controller_spawner" pkg="controller_manager" type="spawner"  
             output="screen" respawn="false" ns="/ur5"
-            args="joint_state_controller eff_joint_traj_controller"/>        
+            args="joint_state_controller
+                eff_joint_traj_controller
+                gripper_controller
+                --timeout 60 ">        
+    </node> 
+    
+
 
     <!-- ****************************** -->
 
