@@ -1,0 +1,120 @@
+Manual para simulação 
+
+a1) Abrir o Gazebo junto com o Moveit/Rviz "SEM a garra"
+--> roslaunch trajectory_pkg spawn_ur5_eff_controller.launch
+
+a2) Abrir o Gazebo junto com o Moveit/Rviz "COM a garra"
+--> roslaunch trajectory_pkg spawn_ur5_gripper.launch
+
+a3) Abrir o Gazebo junto com o Moveit/Rviz "COM a garra" e a câmera intel Realsense d435
+--> roslaunch trajectory_pkg spawn_ur5_gripper_cam.launch
+
+b) Posicionar o robô na posição inicial
+--> rosrun trajectory_pkg pos_initial.py
+
+c) Inserir os obstáculos no Gazebo
+--> rosrun trajectory_pkg spawn_spheres.py
+
+d) Remover obstáculos no Gazebo
+--> rosrun trajectory_pkg remove_spheres_gazebo.py
+
+e) Movimentar o robô entre duas posições utilizando o Rviz 
+--> rosrun trajectory_pkg analisador.py
+
+f) Planejamento de trajetória do robô com o algoritmo de "Campos Potenciais Artificiais Tradicional"
+--> rosrun trajectory_pkg cpa_basic.py
+
+g) Planejamento de trajetória do robô com o algoritmo de "Campos Potenciais Artificiais Tradicional"
+--> rosrun trajectory_pkg cpa_basic2.py
+
+h) Planejamento de trajetória do robô com o algoritmo de "Campos Potenciais Artificiais Adaptativos"
+--> rosrun trajectory_pkg cpa_basic3.py
+
+i) Verificar a posição do robô no espaço cartesiano
+--> rosrun tf tf_echo /base_link /tool0
+
+j) Adicionar obstáculos no Moveit
+--> rosrun trajectory_pkg obstaculos.py
+
+l) Excluir obstáculos no Moveit
+--> rosrun trajectory_pkg remove_spheres.py
+
+*************************************************************************************
+
+Distância dos obstáculos:
+Obs: No script " spawn_spheres.py" para inserir os obstáculos é necessário adicionar a elevação do robô "1.015 m"
+     Nos scripts de cpa pode-se colocar da forma que está anotado abaixo.
+
+1 - Para goal position: [-0.488, 0.191, 0.510]
+a) teste 1: [-0.2, -0.1915, 0.75], [-0.3, 0.191, 0.65]
+b) teste 2: [-0.2, 0.0, 0.75], [-0.2, 0.191, 0.65] # Para estes obstáculos o robô não conseguiu passar os obstáculos
+c) teste 3: [-0.4, 0.0, 0.75], [-0.4, 0.191, 0.65] #
+
+2 - Para goal position: [-0.488, 0.191, 0.510]
+
+
+
+
+
+
+
+
+
+
+
+**********************************************************************************************
+Projeto final do semestre 
+
+a) Abrir o Gazebo junto com o Moveit/Rviz "COM a garra" e a câmera intel Realsense d435
+--> roslaunch trajectory_pkg spawn_ur5_gripper_cam.launch
+
+b)Para visualizar a imagem da câmera
+rosrun image_view image_view image:=/camera/color/image_raw
+ou
+rqt_image_view
+
+c) Posicionar o robô na posição inicial
+--> rosrun trajectory_pkg init_position.py
+
+d) Posição de preensão
+Mova o robô para um ponto diretamente acima e ligeiramente dentro de cada caixa colorida onde você deseja soltar o cubo.
+     rosrun trajectory_pkg position_grip.py
+
+
+d1) ler a pose do efetuador final (posição e orientação) usando o "rostopic echo /move_group/current_pose" (or similar, ensure it's in base_link frame).
+
+d2) Update the self.place_locations dictionary in ur5_pick_and_place.py with these exact coordinates.
+
+
+e) Update self.color_ranges in object_detector.py
+
+f) Detecção do bloco quanto a cor
+rosrun trajectory_pkg object_detector.py
+
+
+
+
+
+
+
+rosrun tf tf_echo world tool0    
+rosrun tf view_frames
+rqt_tf_tree
+check_urdf $(rospack find trajectory_pkg)/urdf/ur5_gripper_cam.xacro   # util para analisar o script urdf
+
+Posição acima dos objetos para fazer a visualização dos blocos e das caixas:
+At time 578.281
+- Translation: [-0.445, 0.099, 0.656]
+- Rotation: in Quaternion [0.001, 0.996, -0.055, -0.077]
+            in RPY (radian) [-3.030, -0.153, 3.132]
+            in RPY (degree) [-173.625, -8.795, 179.446]
+
+At time 1961.657
+- Translation: [-0.441, 0.093, 0.671]
+- Rotation: in Quaternion [-0.006, 0.989, -0.100, -0.109]
+            in RPY (radian) [-2.940, -0.219, 3.131]
+            in RPY (degree) [-168.442, -12.531, 179.397]
+
+
+
+position: [-0.9863883901350183, -1.5762144678802201, 0.0006755823210884415, -1.9275579209404494, 1.7701385269807446, -1.5596449591229034]

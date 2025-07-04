@@ -22,7 +22,7 @@ def move_ur5_to_pose():
     )
 
     # We get the joint values from the group and change some of the values:
-    val = [-0.12371320, -1.41085091, 0.04532966, -0.04699265, 0.04358365, -1.57003067]
+    val = [1.3207399614028636, 0.00040854797170375434, -1.3280860057347388, 1.5588447245056152, -1.6864056880149283, -1.680175758495988, -1.5595766828213637]
     joint_goal = move_group.get_current_joint_values()
     joint_goal[0] = val[0]
     joint_goal[1] = val[1]

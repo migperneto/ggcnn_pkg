@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <param name="robot_description" command = "$(find xacro)/xacro $(find trajectory_pkg)/urdf/ur5_gripper_cam.xacro" />
+
+    <arg name="x" default="0" />
+    <arg name="y" default="0" />
+    <arg name="z" default="1.015" />
+    <arg name="R" default="0" />
+    <arg name="P" default="0" />
+    <arg name="Y" default="0" /> <!-- 1.57 -->
+    
+    <arg name="world_file" default = "$(find trajectory_pkg)/worlds/my_scene.world" />
+
+    <include file = "$(find gazebo_ros)/launch/empty_world.launch" >
+        <arg name="use_sim_time" value="true"/>
+        <arg name="debug" value="false"/>
+        <arg name="gui" value="true"/>
+        <arg name="paused" value="true" />
+        <arg name="world_name" value="$(arg world_file)"/>
+    </include>   
+
+    
+    <node name="spawn_the_robot" pkg="gazebo_ros" type="spawn_model"  output="screen" 
+        args="-urdf -param robot_description -model ur5 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/>
+
+    <group ns="camera"> 
+            <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+            <node pkg="tf" type="static_transform_publisher" name="camera_depth_optical_frame_broadcaster"
+              args="0 0 0 -1.57079632679 0 -1.57079632679 CAM_support_link camera_depth_optical_frame 100" />
+
+            <node pkg="tf" type="static_transform_publisher" name="camera_color_optical_frame_broadcaster"
+              args="0 0 0 -1.57079632679 0 -1.57079632679 camera_color_frame camera_color_optical_frame 100" />
+
+            <arg name="align_depth" value="true"/>
+            <arg name="enable_pointcloud" value="true"/>
+            <arg name="initial_reset" value="true"/> 
+            <arg name="enable_accel" value="false"/> 
+            <arg name="enable_gyro" value="false"/>   
+            <arg name="filters" value="pointcloud"/> 
+            <arg name="depth_width" value="640"/>
+            <arg name="depth_height" value="480"/>
+            <arg name="depth_fps" value="30"/>
+            <arg name="color_width" value="640"/>
+            <arg name="color_height" value="480"/>
+            <arg name="color_fps" value="30"/>
+        </include>
+    </group>
+
+
+    <group ns="objetos">
+      <!-- add box blue -->
+      <node name="spawn_box_blue" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/bin_blue/model.sdf -sdf -model box_blue -x -0.888598 -y 0.240476 -z 1.025" />
+
+      <!-- add box green -->    
+      <node name="spawn_box_green" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/bin_green/model.sdf -sdf -model box_green -x -0.888598 -y -0.009524 -z 1.025" />
+
+      <!-- add box red -->    
+      <node name="spawn_box_red" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/bin_red/model.sdf -sdf -model box_red -x -0.888598 -y -0.259524 -z 1.025" />
+
+      <!-- add block blue 1 -->    
+      <node name="spawn_block_blue_1" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/block_blue/model.sdf -sdf -model block_blue_1 -x -0.494093 -y 0.003185 -z 1.025" />
+
+      <!-- add block green 1 -->    
+      <node name="spawn_block_green_1" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/block_green/model.sdf -sdf -model block_green_1 -x -0.560503 -y -0.221624 -z 1.025" />
+
+      <!-- add block red 1 -->    
+      <node name="spawn_block_red_1" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/block_red/model.sdf -sdf -model block_red_1 -x -0.571972 -y 0.200934 -z 1.025" />
+
+      <!-- add block blue 2 -->    
+      <node name="spawn_block_blue_2" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/block_blue/model.sdf -sdf -model block_blue_2 -x -0.424412 -y -0.143902 -z 1.025" />
+
+      <!-- add block green 2 -->    
+      <node name="spawn_block_green_2" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/block_green/model.sdf -sdf -model block_green_2 -x -0.441868 -y 0.201144 -z 1.025" />
+
+      <!-- add block red 2 -->    
+      <node name="spawn_block_red_2" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find trajectory_pkg)/models/pick_place/block_red/model.sdf -sdf -model block_red_2 -x -0.651180 -y 0.006137 -z 1.025" />
+
+    </group>
+
+
+    <rosparam command="load" file="$(find trajectory_pkg)/config/ur5_gripper_controllers.yaml"/>
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner"  
+            output="screen" respawn="false" ns="/ur5"
+            args="joint_state_controller
+                eff_joint_traj_controller
+                gripper_controller
+                --timeout 60 ">        
+    </node> 
+
+
+    <!-- Convert joint states to TF transform for rviz and rqt-->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"  
+            output="screen" respawn="false">
+            <remap from="/joint_states" to="/ur5/joint_states"/>
+    </node>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    <remap from="/joint_states" to="/ur5/joint_states"/>
+    <!--wrist_3_joint_effort_controllerwrist_3_joint_effort_controller
+    <node name="rqt_reconfigure" pkg="rqt_gui" type="rqt_gui" />
+    -->
+
+    
+    <include file= "$(find ur_camera_moveit_config)/launch/planning_context.launch" >
+        <arg name="load_robot_description" value="false" />
+    </include>
+
+    <include file= "$(find ur_camera_moveit_config)/launch/move_group.launch" >
+        <arg name="publish_monitored_planning_scene" value="true" />
+    </include>
+
+    <include file= "$(find ur_camera_moveit_config)/launch/moveit_rviz.launch" >
+        <arg name="rviz_config" value="$(find ur_camera_moveit_config)/launch/moveit.rviz" />
+    </include>
+
+    
+</launch>

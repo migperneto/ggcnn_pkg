@@ -48,7 +48,7 @@
     <rosparam command="load" file="$(find trajectory_pkg)/config/ur5_eff_controllers.yaml"/>
 
 
-     <!-- Load the node controller manager-->
+    <!-- Load the node controller manager-->
     <node name="controller_spawner" pkg="controller_manager" type="spawner"  
             output="screen" respawn="false" ns="/ur5"
             args="joint_state_controller
