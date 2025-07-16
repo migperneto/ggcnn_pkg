@@ -29,7 +29,8 @@ def inverse_kinematics_ur5(x, y, z, current_joint_angles):
 
 
 
-# current_joint_angles = [0, 0, 0, 0, 0, 0]
-# inv = inverse_kinematics_ur5(-0.4, 0.0, 0.75, current_joint_angles)
-# print("Ângulos das juntas:", inv)
+
+current_joint_angles = [0.001, -1.58, -1.005, -1.937, 1.770, -1.56]
+inv = inverse_kinematics_ur5(-0.427131, 0.003185, 0.4, current_joint_angles)
+print("Ângulos das juntas:", inv)
 

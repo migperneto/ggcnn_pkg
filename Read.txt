@@ -16,7 +16,7 @@ c) Inserir os obstáculos no Gazebo
 --> rosrun trajectory_pkg spawn_spheres.py
 
 d) Remover obstáculos no Gazebo
---> rosrun trajectory_pkg remove_spheres_gazebo.py
+--> rosrun trajectory_pkg remove_spheres_gazebo.py     
 
 e) Movimentar o robô entre duas posições utilizando o Rviz 
 --> rosrun trajectory_pkg analisador.py

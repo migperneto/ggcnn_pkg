@@ -136,8 +136,8 @@ This is the Gazebo URDF model for the Intel RealSense D435 camera
         <infrared2OpticalframeName>${infrared2_optical_frame}</infrared2OpticalframeName>
         <rangeMinDepth>0.2</rangeMinDepth>
         <rangeMaxDepth>10.0</rangeMaxDepth>
-        <!-- <pointCloud>${publish_pointcloud}</pointCloud> -->   <!-- para incluir a nuvem de pontos basta descomentar essa linha e comentar a linha de baixo -->
-        <pointCloud>false</pointCloud>
+        <pointCloud>${publish_pointcloud}</pointCloud>   <!-- para incluir a nuvem de pontos basta descomentar essa linha e comentar a linha de baixo -->
+        <!-- <pointCloud>false</pointCloud> -->
         <pointCloudTopicName>depth/color/points</pointCloudTopicName>
         <pointCloudCutoff>0.25</pointCloudCutoff>
         <pointCloudCutoffMax>9.0</pointCloudCutoffMax>
@@ -147,3 +147,10 @@ This is the Gazebo URDF model for the Intel RealSense D435 camera
   </xacro:macro>
 </robot>
 
+
+
+
+
+
+
+ 

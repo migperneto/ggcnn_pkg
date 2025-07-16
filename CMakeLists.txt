@@ -15,6 +15,11 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   urdf
+
+  pcl_conversions
+  pcl_ros
+  sensor_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions

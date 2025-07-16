@@ -79,10 +79,12 @@ def ur5_cartesian_listener():
 
 # ur5_cartesian_listener()
 
-joint_angles = [0.001502366387020615, -1.5699573339977295, -0.0032821566105987188, 0.0018254296884796517, -0.00017268888238231028, -1.5699690207809667]
-Matriz_transf = forward_kinematics(joint_angles)
-pos = Matriz_transf
 
-print(pos)
+
+# joint_angles = [0.001502366387020615, -1.5699573339977295, -0.0032821566105987188, 0.0018254296884796517, -0.00017268888238231028, -1.5699690207809667]
+# Matriz_transf = forward_kinematics(joint_angles)
+# pos = Matriz_transf
+
+# print(pos)
 
 

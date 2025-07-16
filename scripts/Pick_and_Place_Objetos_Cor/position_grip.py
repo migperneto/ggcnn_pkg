@@ -6,10 +6,11 @@ import moveit_commander
 import geometry_msgs.msg
 import moveit_msgs.msg
 
-def move_ur5_to_pose():
+def move_ur5_to_pose(position_joint):
+    print(position_joint)
     # Inicializa o MoveIt! Commander e o nó ROS
     moveit_commander.roscpp_initialize(sys.argv)
-    rospy.init_node('ur5_move_to_pose', anonymous=True)
+    rospy.init_node('ur5_move_to_pose_1', anonymous=True)
 
     # Cria um objeto MoveGroupCommander para o braço robótico UR5
     move_group = moveit_commander.MoveGroupCommander("manipulator")
@@ -21,44 +22,17 @@ def move_ur5_to_pose():
         queue_size=20,
     )
 
-
     # We get the joint values from the group and change some of the values:
-    position = [0.0006755823210884415, -1.5762144678802201, -0.9863883901350183, -1.9275579209404494, 1.7701385269807446, -1.5596449591229034]
-    # position = [-1.428701698427334, -0.5277375484941293, 3.201691640600057, -1.1816090981264198, -1.6411744157660557, -1.5649199903680033]
-
     joint_goal = move_group.get_current_joint_values()
-    joint_goal[0] = position[0]
-    joint_goal[1] = position[1]
-    joint_goal[2] = position[2]
-    joint_goal[3] = position[3]
-    joint_goal[4] = position[4]
-    joint_goal[5] = position[5]
+    joint_goal[0] = position_joint[2]
+    joint_goal[1] = position_joint[1]
+    joint_goal[2] = position_joint[0]
+    joint_goal[3] = position_joint[3]
+    joint_goal[4] = position_joint[4]
+    joint_goal[5] = position_joint[5]
 
     move_group.go(joint_goal, wait=True)
     move_group.stop()
-
-    # # Define a pose desejada (posição e orientação)
-    # val = [-0.864, -0.189, 0.302] 
-    # target_pose = geometry_msgs.msg.Pose()
-    # target_pose.position.x = val[0]   # Posição X (metros)
-    # target_pose.position.y = val[1]   # Posição Y (metros)
-    # target_pose.position.z = val[2]   # Posição Z (metros)
-    # quat = [0.001, 0.996, -0.055, -0.077]
-    # # Orientação definida como um quaternion (w,x,y,z)
-    # target_pose.orientation.x = quat[0]
-    # target_pose.orientation.y = quat[1]
-    # target_pose.orientation.z = quat[2]
-    # target_pose.orientation.w = quat[3]  # Define a orientação do end-effector
-
-    # # Define o alvo no espaço cartesiano
-    # move_group.set_pose_target(target_pose)
-
-    # # Planeja e executa o movimento
-    # plan = move_group.go(wait=True)  # Planeja e executa diretamente
-
-    # # Libera o alvo após o movimento para evitar que ele permaneça bloqueado
-    # move_group.stop()
-    # move_group.clear_pose_targets()
 
     # Finaliza a comunicação com o MoveIt!
     moveit_commander.roscpp_shutdown()
@@ -66,7 +40,8 @@ def move_ur5_to_pose():
 
 if __name__ == '__main__':
     try:
-        move_ur5_to_pose()
+        position_joint =  [-1.0054704413213962, -1.5801199410581797, 0.00089008570573057, -1.9367237375089363, 1.5699304075994247, -1.5595961735668054]   # posição 1 de preensão
+        move_ur5_to_pose(position_joint)
     except rospy.ROSInterruptException:
         pass
 
