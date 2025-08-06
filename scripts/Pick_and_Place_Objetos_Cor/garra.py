@@ -60,12 +60,12 @@ if __name__ == '__main__':
     try:
         # Exemplo de uso:
         # Para fechar a garra:
-        close_gripper()
-        rospy.sleep(2) # Espera um pouco antes de abrir novamente
+        # close_gripper()
+        # rospy.sleep(2) # Espera um pouco antes de abrir novamente
 
         # Para abrir a garra:
-        # open_gripper()
-        # rospy.sleep(2) # Espera para ver o resultado
+        open_gripper()
+        rospy.sleep(2) # Espera para ver o resultado
 
         rospy.loginfo("Demonstração de abertura e fechamento da garra concluída.")
 

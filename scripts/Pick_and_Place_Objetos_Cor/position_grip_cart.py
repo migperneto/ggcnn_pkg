@@ -63,8 +63,8 @@ def move_ur5_to_pose(val, euler):
 if __name__ == '__main__':
     try:
 
-        val = [-0.446, 0.109, 0.5]    # posição 1 de preensão
-        euler = [-3.140, -0.190, 3.131]  # roll, pitch, yaw
+        val = [-0.446, 0.109, 0.45]    # posição 
+        euler = [3.140, -0.190, 3.131]  # roll, pitch, yaw
 
         move_ur5_to_pose(val, euler)
         # rospy.sleep(0.2)
@@ -73,3 +73,5 @@ if __name__ == '__main__':
 
     except rospy.ROSInterruptException:
         pass
+
+

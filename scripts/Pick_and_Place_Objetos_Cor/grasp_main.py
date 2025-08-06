@@ -145,135 +145,6 @@ def close_gripper(CLOSE_POSITION):
 
 
 
-if '__main__' == __name__:
-    try:
-
-        # Inicializa o MoveIt! Commander e o nó ROS
-        moveit_commander.roscpp_initialize(sys.argv)
-        rospy.init_node('ur5_move_to_grasp', anonymous=True)
-
-
-
-        # Order of blocks: blue 1, green 1, red 1, blue 2, green 2, red 2
-        ordem_blocks = ['blue 1', 'green 1', 'red 1', 'blue 2', 'green 2', 'red 2']
-        # Pose of blocks x, y , z and orientation roll, pitch, yaw
-        position_blocks = [[-2.223227844138586, -1.5975670721842938, 0.24097119454288318, -0.8946125301880326, 1.6203262088188568, -1.309466599377533],
-                           [-1.746992614188538, -1.9751005729257116, 0.5527334528128778, -0.9809564743647519, 1.6136790141372437, -0.9967395752014188], 
-                           [-1.723978492744779, -1.984274524817467, -0.16405711953390867, -1.0285922240788121, 1.6226710835743008, -1.7150313329560323], 
-                           [-2.176307257601474, -1.64605645507637, 0.5650710218568333, -0.8768140537458144, 1.613276417315924, -0.9850618067448176], 
-                           [-2.066942476049843, -1.7309810352830262, -0.20918170150656135, -0.9398578581853263, 1.6204613976673965, -1.7599683921116718], 
-                           [-1.8550829804563618, -1.897237648176656, 0.17638380360182015, -0.9674630430678004, 1.6205337928463486, -1.3729405150193355]]   
-    
-        # Boxes: blue, green, red
-        position_box = [[-0.5008817206553751, -2.5309001530019994, -0.16569502370928824, -1.7241717276560955, 1.6187000888291863, -1.7159241497353737], 
-                        [-0.7769139205662485, -2.3825929379726034, 0.14319825340289594, -1.5791315915651962, 1.6248232139083019, -1.4069595987148054], 
-                        [-0.4817734355037153, -2.5451971393955075, 0.43868511752112305, -1.69724901491902, 1.6236019178759236, -1.1100579804398247]]  
-
-        # Position for intermediate grasp
-        position_intermediate_grasp = [-1.5701470457789934, -1.4516880522137985, 0.000253752333129853, -1.5184446505798688, 1.570947077181061, -1.559754733121042]
-
-        # Position of grip 1
-        position_grip_1 = [-1.0054704413213962, -1.5801199410581797, 0.00089008570573057, -1.9367237375089363, 1.5699304075994247, -1.5595961735668054]    # posição 1 de preensão
-
-
-        # Posição vertical
-        position_vertical = [0, -1.57, 0, -1.57, 0, 1.57]
-
-        rospy.loginfo("Starting System Operation")
-        move_ur5_joints(position_vertical) # Move to vertical position
-
-        rospy.loginfo("Text gripper: Closing and opening gripper!!!!")
-        close_gripper(0.798)  # Close gripper
-        rospy.sleep(0.1)  # Wait for gripper to close
-        open_gripper(0.0)  # Open gripper
-        rospy.sleep(0.1)  # Wait for gripper to open
-
-        # Moving the robot to the grip position
-        rospy.loginfo("Moving to grip position!!!")
-        move_ur5_joints(position_grip_1)  # Move to Position of grip 1
-        rospy.sleep(0.1)
-
-
-        for n, block in enumerate(ordem_blocks):
-
-            # Moving to block
-            print(f"Moving to {block} block!!!")
-            move_ur5_joints(position_blocks[n])
-            # rospy.sleep(0.1)
-            close_gripper(0.46)  # Close gripper
-            rospy.sleep(0.1)   
-
-            
-            # Moving to intermediate grasp
-            rospy.loginfo("Moving to intermediate grasp!!!")
-            move_ur5_joints(position_intermediate_grasp)  # Move to intermediate grasp
-            # rospy.sleep(0.1)
-
-
-            # Moving to the box
-            if (block == 'blue 1' or block == 'blue 2'):
-                rospy.loginfo("Moving to blue box!!!")
-                move_ur5_joints(position_box[0])
-                open_gripper(0.0)  # Open gripper
-                # rospy.sleep(0.2)
-
-            elif (block == 'green 1' or block == 'green 2'):
-                rospy.loginfo("Moving to green box!!!")
-                move_ur5_joints(position_box[1])
-                open_gripper(0.0)  # Open gripper
-                # rospy.sleep(0.2)
-
-            elif (block == 'red 1' or block == 'red 2'):
-                rospy.loginfo("Moving to red box!!!")
-                move_ur5_joints(position_box[2])
-                open_gripper(0.0)  # Open gripper
-                # rospy.sleep(0.2)
-
-            # Moving to intermediate grasp
-            rospy.loginfo("Moving to intermediate grasp!!!")
-            move_ur5_joints(position_grip_1)  # Move to intermediate grasp
-            # rospy.sleep(0.1)
-
-        
-        # move_ur5_joints(position_grip_1)  # Move to Position of grip 1  
-        # rospy.sleep(0.1) 
-
-
-        move_ur5_joints(position_vertical) # Move to vertical position
-
-        # Finaliza a comunicação com o MoveIt!
-        moveit_commander.roscpp_shutdown()
-        rospy.loginfo("Movimento Executado!")
-
-
-
-    except rospy.ROSInterruptException:
-        pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # if '__main__' == __name__:
 #     try:
 
@@ -286,76 +157,90 @@ if '__main__' == __name__:
 #         # Order of blocks: blue 1, green 1, red 1, blue 2, green 2, red 2
 #         ordem_blocks = ['blue 1', 'green 1', 'red 1', 'blue 2', 'green 2', 'red 2']
 #         # Pose of blocks x, y , z and orientation roll, pitch, yaw
-#         position_blocks = [[-0.427131, 0.003185, 0.19],[-0.560503, -0.221624, 0.19], [-0.571972, 0.200934, 0.19], 
-#                         [-0.424412, -0.143902, 0.19], [-0.441868, 0.201144, 0.19], [-0.564329, 0.006137, 0.19]]   
-#         orientation_blocks = [-3.090, 0.00, 3.121] # roll, pitch, yaw
-
+#         position_blocks = [[-2.223227844138586, -1.5975670721842938, 0.24097119454288318, -0.8946125301880326, 1.6203262088188568, -1.309466599377533],
+#                            [-1.746992614188538, -1.9751005729257116, 0.5527334528128778, -0.9809564743647519, 1.6136790141372437, -0.9967395752014188], 
+#                            [-1.723978492744779, -1.984274524817467, -0.16405711953390867, -1.0285922240788121, 1.6226710835743008, -1.7150313329560323], 
+#                            [-2.176307257601474, -1.64605645507637, 0.5650710218568333, -0.8768140537458144, 1.613276417315924, -0.9850618067448176], 
+#                            [-2.066942476049843, -1.7309810352830262, -0.20918170150656135, -0.9398578581853263, 1.6204613976673965, -1.7599683921116718], 
+#                            [-1.8550829804563618, -1.897237648176656, 0.17638380360182015, -0.9674630430678004, 1.6205337928463486, -1.3729405150193355]]   
+    
 #         # Boxes: blue, green, red
-#         position_box = [[-0.8, 0.240476, 0.3], [-0.8, -0.009524, 0.3], [-0.8, -0.259524, 0.3]]  # x, y , z
-#         orientation_blocks = [-3.090, 0.015, 3.121] # roll, pitch, yaw
+#         position_box = [[-0.5008817206553751, -2.5309001530019994, -0.16569502370928824, -1.7241717276560955, 1.6187000888291863, -1.7159241497353737], 
+#                         [-0.7769139205662485, -2.3825929379726034, 0.14319825340289594, -1.5791315915651962, 1.6248232139083019, -1.4069595987148054], 
+#                         [-0.4817734355037153, -2.5451971393955075, 0.43868511752112305, -1.69724901491902, 1.6236019178759236, -1.1100579804398247]]  
 
 #         # Position for intermediate grasp
-#         position_intermediate_grasp = [-0.446, 0.109, 0.4]  # x, y , z
-#         orientation_intermediate_grasp = [3.140, -0.190, 3.131] # roll, pitch, yaw
+#         # position_intermediate_grasp = [-1.5701470457789934, -1.4516880522137985, 0.000253752333129853, -1.5184446505798688, 1.570947077181061, -1.559754733121042]
+#         position_intermediate_grasp = [-1.70, -1.44, 0.00, -1.39, 1.57, -1.56]  # posição mais próximo dos blocos
+
 
 #         # Position of grip 1
 #         position_grip_1 = [-1.0054704413213962, -1.5801199410581797, 0.00089008570573057, -1.9367237375089363, 1.5699304075994247, -1.5595961735668054]    # posição 1 de preensão
 
+#         # Posição vertical
+#         position_vertical = [0, -1.57, 0, -1.57, 0, 1.57]
 
 #         rospy.loginfo("Starting System Operation")
+#         move_ur5_joints(position_vertical) # Move to vertical position
 
 #         rospy.loginfo("Text gripper: Closing and opening gripper!!!!")
 #         close_gripper(0.798)  # Close gripper
-#         rospy.sleep(0.7)  # Wait for gripper to close
+#         # rospy.sleep(0.1)  # Wait for gripper to close
 #         open_gripper(0.0)  # Open gripper
-#         rospy.sleep(0.7)  # Wait for gripper to open
+#         # rospy.sleep(0.1)  # Wait for gripper to open
 
 #         # Moving the robot to the grip position
 #         rospy.loginfo("Moving to grip position!!!")
 #         move_ur5_joints(position_grip_1)  # Move to Position of grip 1
-#         rospy.sleep(0.2)
+#         # rospy.sleep(0.1)
 
 
 #         for n, block in enumerate(ordem_blocks):
 
-#             Moving to block desired
-#             rospy.loginfo(f"Moving to {block} block!!!")
-#             move_ur5_cartesiano(val=position_blocks[n], euler=orientation_blocks)
-#             rospy.sleep(0.2)
+#             # Moving to block
+#             print(f"Moving to {block} block!!!")
+#             move_ur5_joints(position_blocks[n])
+#             # rospy.sleep(0.1)
 #             close_gripper(0.46)  # Close gripper
-#             rospy.sleep(0.2)   
+#             # rospy.sleep(0.1)   
 
-
+            
 #             # Moving to intermediate grasp
 #             rospy.loginfo("Moving to intermediate grasp!!!")
-#             move_ur5_cartesiano(val=position_intermediate_grasp, euler=orientation_intermediate_grasp)  # Move to intermediate grasp
-#             rospy.sleep(0.3)
+#             move_ur5_joints(position_intermediate_grasp)  # Move to intermediate grasp
+#             # rospy.sleep(0.1)
 
 
 #             # Moving to the box
 #             if (block == 'blue 1' or block == 'blue 2'):
 #                 rospy.loginfo("Moving to blue box!!!")
-#                 move_ur5_cartesiano(val=position_box[0], euler=orientation_blocks)
+#                 move_ur5_joints(position_box[0])
 #                 open_gripper(0.0)  # Open gripper
-#                 rospy.sleep(0.3)
+#                 # rospy.sleep(0.2)
 
 #             elif (block == 'green 1' or block == 'green 2'):
 #                 rospy.loginfo("Moving to green box!!!")
-#                 move_ur5_cartesiano(val=position_box[1], euler=orientation_blocks)
+#                 move_ur5_joints(position_box[1])
 #                 open_gripper(0.0)  # Open gripper
-#                 rospy.sleep(0.3)
+#                 # rospy.sleep(0.2)
 
 #             elif (block == 'red 1' or block == 'red 2'):
 #                 rospy.loginfo("Moving to red box!!!")
-#                 move_ur5_cartesiano(val=position_box[2], euler=orientation_blocks)
+#                 move_ur5_joints(position_box[2])
 #                 open_gripper(0.0)  # Open gripper
-#                 rospy.sleep(0.3)
+#                 # rospy.sleep(0.2)
 
 #             # Moving to intermediate grasp
 #             rospy.loginfo("Moving to intermediate grasp!!!")
-#             move_ur5_cartesiano(val=position_intermediate_grasp, euler=orientation_intermediate_grasp)  # Move to intermediate grasp
-#             rospy.sleep(0.3)
+#             move_ur5_joints(position_intermediate_grasp)  # Move to intermediate grasp
+#             # rospy.sleep(0.1)
 
+        
+#         # move_ur5_joints(position_grip_1)  # Move to Position of grip 1  
+#         # rospy.sleep(0.1) 
+
+
+#         move_ur5_joints(position_vertical) # Move to vertical position
 
 #         # Finaliza a comunicação com o MoveIt!
 #         moveit_commander.roscpp_shutdown()
@@ -365,3 +250,125 @@ if '__main__' == __name__:
 
 #     except rospy.ROSInterruptException:
 #         pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if '__main__' == __name__:
+    try:
+
+        # Inicializa o MoveIt! Commander e o nó ROS
+        moveit_commander.roscpp_initialize(sys.argv)
+        rospy.init_node('ur5_move_to_grasp', anonymous=True)
+
+
+
+        # Order of blocks: blue 1, green 1, red 1, blue 2, green 2, red 2
+        ordem_blocks = ['blue 1', 'green 1', 'red 1', 'blue 2', 'green 2', 'red 2']   # Completo
+        # ordem_blocks = ['blue 1', 'green 1', 'red 1']   # Metade
+        # Pose of blocks x, y , z and orientation roll, pitch, yaw
+        position_blocks = [[-0.427131, 0.003185, 0.19],[-0.560503, -0.221624, 0.19], [-0.571972, 0.200934, 0.19], 
+                        [-0.424412, -0.143902, 0.19], [-0.441868, 0.201144, 0.19], [-0.564329, 0.006137, 0.19]]   
+        orientation_blocks = [-3.090, 0.00, 3.121] # roll, pitch, yaw
+
+        # Boxes: blue, green, red
+        position_box = [[-0.8, 0.240476, 0.3], [-0.8, -0.009524, 0.3], [-0.8, -0.259524, 0.3]]  # x, y , z
+        orientation_blocks = [-3.090, 0.015, 3.121] # roll, pitch, yaw
+
+        # Position for intermediate grasp
+        position_intermediate_grasp = [-0.446, 0.109, 0.4]  # x, y , z
+        orientation_intermediate_grasp = [3.140, -0.190, 3.131] # roll, pitch, yaw
+
+        # Position of grip 1
+        position_grip_1 = [-1.0054704413213962, -1.5801199410581797, 0.00089008570573057, -1.9367237375089363, 1.5699304075994247, -1.5595961735668054]    # posição 1 de preensão
+
+
+        # Posição vertical
+        position_vertical = [0, -1.57, 0, -1.57, 0, 1.57]
+
+        rospy.loginfo("Starting System Operation")
+        move_ur5_joints(position_vertical) # Move to vertical position        
+
+        rospy.loginfo("Text gripper: Closing and opening gripper!!!!")
+        close_gripper(0.798)  # Close gripper
+        # rospy.sleep(0.7)  # Wait for gripper to close
+        open_gripper(0.0)  # Open gripper
+        # rospy.sleep(0.7)  # Wait for gripper to open
+
+        # Moving the robot to the grip position
+        rospy.loginfo("Moving to grip position!!!")
+        move_ur5_joints(position_grip_1)  # Move to Position of grip 1
+        # rospy.sleep(0.2)
+
+
+        for n, block in enumerate(ordem_blocks):
+
+            # Moving to block desired
+            rospy.loginfo(f"Moving to {block} block!!!")
+            move_ur5_cartesiano(val=position_blocks[n], euler=orientation_blocks)
+            # rospy.sleep(0.2)
+            close_gripper(0.46)  # Close gripper
+            # rospy.sleep(0.2)   
+
+
+            # Moving to intermediate grasp
+            rospy.loginfo("Moving to intermediate grasp!!!")
+            move_ur5_cartesiano(val=position_intermediate_grasp, euler=orientation_intermediate_grasp)  # Move to intermediate grasp
+            # rospy.sleep(0.3)
+
+
+            # Moving to the box
+            if (block == 'blue 1' or block == 'blue 2'):
+                rospy.loginfo("Moving to blue box!!!")
+                move_ur5_cartesiano(val=position_box[0], euler=orientation_blocks)
+                open_gripper(0.0)  # Open gripper
+                # rospy.sleep(0.3)
+
+            elif (block == 'green 1' or block == 'green 2'):
+                rospy.loginfo("Moving to green box!!!")
+                move_ur5_cartesiano(val=position_box[1], euler=orientation_blocks)
+                open_gripper(0.0)  # Open gripper
+                # rospy.sleep(0.3)
+
+            elif (block == 'red 1' or block == 'red 2'):
+                rospy.loginfo("Moving to red box!!!")
+                move_ur5_cartesiano(val=position_box[2], euler=orientation_blocks)
+                open_gripper(0.0)  # Open gripper
+                # rospy.sleep(0.3)
+
+            # Moving to intermediate grasp
+            rospy.loginfo("Moving to intermediate grasp!!!")
+            move_ur5_cartesiano(val=position_intermediate_grasp, euler=orientation_intermediate_grasp)  # Move to intermediate grasp
+            # rospy.sleep(0.3)
+
+        move_ur5_joints(position_vertical) # Move to vertical position
+
+        # Finaliza a comunicação com o MoveIt!
+        moveit_commander.roscpp_shutdown()
+        rospy.loginfo("Movimento Executado!")
+
+
+
+    except rospy.ROSInterruptException:
+        pass

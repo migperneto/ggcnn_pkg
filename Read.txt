@@ -73,6 +73,21 @@ rosrun image_view image_view image:=/camera/color/image_raw
 ou
 rqt_image_view
 
+c) Lançar os blocos e caixas no mundo
+rosrun trajectory_pkg spawn_objects_model.py
+
+d) Ler a pose no espaço cartesiano
+rosrun tf tf_echo base_link tool0
+
+e) Ler a variável das juntas, velocidade e força
+rostopic echo /ur5/joint_states
+
+f) Iniciar tarefa de pegar blocos
+rosrun trajectory_pkg grasp_main.py
+
+
+
+
 c) Posicionar o robô na posição inicial
 --> rosrun trajectory_pkg init_position.py
 
