@@ -3,18 +3,18 @@
 <launch>
 
     <!-- Associate to the robot description parameter, the urdf file that model the robot-->
-    <param name="robot_description" command = "$(find xacro)/xacro $(find trajectory_pkg)/urdf/ur5_traj_gripper.xacro" />
+    <param name="robot_description" command = "$(find xacro)/xacro $(find ggcnn_pkg)/urdf/ur5_traj_gripper.xacro" />
 
     <!-- Set the position in empty world-->
     <arg name="x" default="0" />
     <arg name="y" default="0" />
-    <arg name="z" default="1.015" />
+    <arg name="z" default="0.871" /> <!-- 1.015 -->
     <arg name="R" default="0" />
     <arg name="P" default="0" />
-    <arg name="Y" default="0" />
+    <arg name="Y" default="1.57" /> <!-- 1.57 -->
 
     <!-- put world file as argument-->
-    <arg name="world_file" default = "$(find trajectory_pkg)/worlds/my_scene.world" />
+    <arg name="world_file" default = "$(find ggcnn_pkg)/worlds/my_scene.world" />
 
     <!-- Launch Gezabo world in paused-->
     <include file = "$(find gazebo_ros)/launch/empty_world.launch" >
@@ -25,16 +25,28 @@
         <arg name="world_name" value="$(arg world_file)"/>
     </include>   
 
+
+    <!-- Launch the objects -->
+    <include file="$(find ggcnn_pkg)/launch/spawn_objects.launch" />
+
+    <!-- Lançar os objetos no mundo gazebo -->
+    <!-- <node pkg="ggcnn_pkg" type="spawn_objects.py" name="spawn_table_node" output="screen">      
+    </node> -->
+
     
     <!-- Spawn the robot using the package gazebo_ros-->
     <node name="spawn_the_robot" pkg="gazebo_ros" type="spawn_model"  output="screen" 
         args="-urdf -param robot_description -model ur5 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/>
 
+    <!-- publisher the transform tf for world and base_link of the robot -->
+    <node pkg="tf" type="static_transform_publisher" name="world_to_ur5_tf" args="$(arg x) $(arg y) $(arg z) $(arg R) $(arg P) $(arg Y) /world /base_link 100" />
+
+
     <!-- ****************************** -->
 
      <!-- Load the controllers-->
 
-    <rosparam command="load" file="$(find trajectory_pkg)/config/ur5_gripper_controllers.yaml"/>
+    <rosparam command="load" file="$(find ggcnn_pkg)/config/ur5_gripper_controllers.yaml"/>
 
      <!-- Load the node controller manager-->
     <node name="controller_spawner" pkg="controller_manager" type="spawner"  

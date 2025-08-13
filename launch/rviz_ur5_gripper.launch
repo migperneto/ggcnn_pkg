@@ -2,14 +2,14 @@
 <launch>
 
     <!-- Associate to the robot description parameter, the urdf file that model the robot-->
-    <param name="robot_description" command = "$(find xacro)/xacro $(find trajectory_pkg)/urdf/ur5_traj_gripper.xacro" />
+    <param name="robot_description" command = "$(find xacro)/xacro $(find ggcnn_pkg)/urdf/ur5_traj_gripper.xacro" />
 
     <!-- Read the joint value-->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
     
     <!-- Visualization in Rviz-->
     <!--<node name="rviz" pkg="rviz" type="rviz" />-->
-    <node name="rviz" pkg="rviz" type="rviz" args= "-d $(find trajectory_pkg)/config/config.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args= "-d $(find ggcnn_pkg)/config/config.rviz" />
 
     <!-- Visualization of the use_gui for playing with joint-->
     <arg name="use_gui" default="true" />

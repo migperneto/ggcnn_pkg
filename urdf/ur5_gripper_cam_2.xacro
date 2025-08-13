@@ -60,8 +60,8 @@
           this location. Nor can they rely on the existence of the macro.
   -->
 
-    <xacro:include filename="$(find trajectory_pkg)/urdf/eef.xacro"/>
-    <xacro:include filename="$(find trajectory_pkg)/urdf/_d435.urdf.xacro" />
+    <xacro:include filename="$(find ggcnn_pkg)/urdf/eef.xacro"/>
+    <xacro:include filename="$(find ggcnn_pkg)/urdf/_d435.urdf.xacro" />
 
     <transmission name="shoulder_pan_trans">
         <type>transmission_interface/SimpleTransmission</type>
@@ -397,7 +397,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://trajectory_pkg/models/cam_support/CAM_support.STL" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://ggcnn_pkg/models/cam_support/CAM_support.STL" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   
@@ -405,7 +405,7 @@
       <!-- The cam is rotated 14 degrees (0.24rad) through the yaw axis -->
       <origin rpy="${1.57 - 0.244} ${3.14} -1.57" xyz="${0.002 - 0.03 + 0.023} ${-0.023 + 0.03 - 0.01} ${0.13915-0.205-0.092}"/>
       <geometry>
-        <mesh filename="package://trajectory_pkg/models/cam_support/CAM_support.STL" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://ggcnn_pkg/models/cam_support/CAM_support.STL" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Cyan">
         <color rgba="0.91 0.91 0.88 1.0"/>

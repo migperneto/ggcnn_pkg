@@ -25,9 +25,14 @@
     </include>
 
     <!-- A table (0 -0.4 0 0 0 1.57) -->
-    <include>
+    <!-- <include>
       <uri>model://table</uri>
       <pose>-0.4 0 0 0 0 0</pose> 
+    </include> -->
+
+    <include>
+      <uri>model://lar_table_great</uri>
+      <pose>0 -0.5 0 0 0 0</pose> 
     </include>
   
     <scene>

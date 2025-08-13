@@ -60,7 +60,7 @@
           this location. Nor can they rely on the existence of the macro.
   -->
 
-    <xacro:include filename="$(find trajectory_pkg)/urdf/eef.xacro"/>
+    <xacro:include filename="$(find ggcnn_pkg)/urdf/eef.xacro"/>
 
     <transmission name="shoulder_pan_trans">
         <type>transmission_interface/SimpleTransmission</type>

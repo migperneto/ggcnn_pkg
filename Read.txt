@@ -1,43 +1,43 @@
 Manual para simulação 
 
 a1) Abrir o Gazebo junto com o Moveit/Rviz "SEM a garra"
---> roslaunch trajectory_pkg spawn_ur5_eff_controller.launch
+--> roslaunch ggcnn_pkg spawn_ur5_eff_controller.launch
 
 a2) Abrir o Gazebo junto com o Moveit/Rviz "COM a garra"
---> roslaunch trajectory_pkg spawn_ur5_gripper.launch
+--> roslaunch ggcnn_pkg spawn_ur5_gripper.launch
 
 a3) Abrir o Gazebo junto com o Moveit/Rviz "COM a garra" e a câmera intel Realsense d435
---> roslaunch trajectory_pkg spawn_ur5_gripper_cam.launch
+--> roslaunch ggcnn_pkg spawn_ur5_gripper_cam.launch
 
 b) Posicionar o robô na posição inicial
---> rosrun trajectory_pkg pos_initial.py
+--> rosrun ggcnn_pkg pos_initial.py
 
 c) Inserir os obstáculos no Gazebo
---> rosrun trajectory_pkg spawn_spheres.py
+--> rosrun ggcnn_pkg spawn_spheres.py
 
 d) Remover obstáculos no Gazebo
---> rosrun trajectory_pkg remove_spheres_gazebo.py     
+--> rosrun ggcnn_pkg remove_spheres_gazebo.py     
 
 e) Movimentar o robô entre duas posições utilizando o Rviz 
---> rosrun trajectory_pkg analisador.py
+--> rosrun ggcnn_pkg analisador.py
 
 f) Planejamento de trajetória do robô com o algoritmo de "Campos Potenciais Artificiais Tradicional"
---> rosrun trajectory_pkg cpa_basic.py
+--> rosrun ggcnn_pkg cpa_basic.py
 
 g) Planejamento de trajetória do robô com o algoritmo de "Campos Potenciais Artificiais Tradicional"
---> rosrun trajectory_pkg cpa_basic2.py
+--> rosrun ggcnn_pkg cpa_basic2.py
 
 h) Planejamento de trajetória do robô com o algoritmo de "Campos Potenciais Artificiais Adaptativos"
---> rosrun trajectory_pkg cpa_basic3.py
+--> rosrun ggcnn_pkg cpa_basic3.py
 
 i) Verificar a posição do robô no espaço cartesiano
 --> rosrun tf tf_echo /base_link /tool0
 
 j) Adicionar obstáculos no Moveit
---> rosrun trajectory_pkg obstaculos.py
+--> rosrun ggcnn_pkg obstaculos.py
 
 l) Excluir obstáculos no Moveit
---> rosrun trajectory_pkg remove_spheres.py
+--> rosrun ggcnn_pkg remove_spheres.py
 
 *************************************************************************************
 
@@ -66,7 +66,7 @@ c) teste 3: [-0.4, 0.0, 0.75], [-0.4, 0.191, 0.65] #
 Projeto final do semestre 
 
 a) Abrir o Gazebo junto com o Moveit/Rviz "COM a garra" e a câmera intel Realsense d435
---> roslaunch trajectory_pkg spawn_ur5_gripper_cam.launch
+--> roslaunch ggcnn_pkg spawn_ur5_gripper_cam.launch
 
 b)Para visualizar a imagem da câmera
 rosrun image_view image_view image:=/camera/color/image_raw
@@ -74,7 +74,7 @@ ou
 rqt_image_view
 
 c) Lançar os blocos e caixas no mundo
-rosrun trajectory_pkg spawn_objects_model.py
+rosrun ggcnn_pkg spawn_objects_model.py
 
 d) Ler a pose no espaço cartesiano
 rosrun tf tf_echo base_link tool0
@@ -83,17 +83,17 @@ e) Ler a variável das juntas, velocidade e força
 rostopic echo /ur5/joint_states
 
 f) Iniciar tarefa de pegar blocos
-rosrun trajectory_pkg grasp_main.py
+rosrun ggcnn_pkg grasp_main.py
 
 
 
 
 c) Posicionar o robô na posição inicial
---> rosrun trajectory_pkg init_position.py
+--> rosrun ggcnn_pkg init_position.py
 
 d) Posição de preensão
 Mova o robô para um ponto diretamente acima e ligeiramente dentro de cada caixa colorida onde você deseja soltar o cubo.
-     rosrun trajectory_pkg position_grip.py
+     rosrun ggcnn_pkg position_grip.py
 
 
 d1) ler a pose do efetuador final (posição e orientação) usando o "rostopic echo /move_group/current_pose" (or similar, ensure it's in base_link frame).

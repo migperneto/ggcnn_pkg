@@ -3,18 +3,18 @@
 <launch>
 
     <!-- Associate to the robot description parameter, the urdf file that model the robot-->
-    <param name="robot_description" command = "$(find xacro)/xacro $(find trajectory_pkg)/urdf/ur5_traj.xacro" />
+    <param name="robot_description" command = "$(find xacro)/xacro $(find ggcnn_pkg)/urdf/ur5_traj.xacro" />
 
     <!-- Set teh position in empty world-->
     <arg name="x" default="0" />
     <arg name="y" default="0" />
-    <arg name="z" default="1.015" />
+    <arg name="z" default="0.871" /> <!-- 1.015 -->
     <arg name="R" default="0" />
     <arg name="P" default="0" />
-    <arg name="Y" default="0" />
+    <arg name="Y" default="1.57" /> <!-- 1.57 -->
 
     <!-- put world file as argument-->
-    <arg name="world_file" default = "$(find trajectory_pkg)/worlds/my_scene.world" />
+    <arg name="world_file" default = "$(find ggcnn_pkg)/worlds/my_scene.world" />
 
     <!-- Launch Gezabo world in paused-->
     <include file = "$(find gazebo_ros)/launch/empty_world.launch" >
@@ -24,28 +24,20 @@
         <arg name="paused" value="true" />
         <arg name="world_name" value="$(arg world_file)"/>
     </include>  
-
-<!-- ************************************************************************ -->
-    <!-- Carregando a primeira esfera -->
-    <!-- <arg name="obstacle_file_1" default="$(find trajectory_pkg)/models/sphere_obstacle1.sdf"/>
-    <node name="spawn_sphere_1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-            args="-file $(arg obstacle_file_1) -sdf -model sphere_obstacle1 -z 0.0"/> -->
-
-    <!-- Carregando a segunda esfera -->
-    <!-- <arg name="obstacle_file_2" default="$(find trajectory_pkg)/models/sphere_obstacle2.sdf"/>
-    <node name="spawn_sphere_2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-        args="-file $(arg obstacle_file_2) -sdf -model sphere_obstacle2 -z 0.0"/>   -->
+ 
 
 <!-- ************************************************************************ -->
 
     <!-- Spawn the robot using the package gazebo_ros-->
     <node name="spawn_the_robot" pkg="gazebo_ros" type="spawn_model"  output="screen" 
         args="-urdf -param robot_description -model ur5 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/>
-    
+
+    <!-- publisher the transform tf for world and base_link of the robot -->
+    <node pkg="tf" type="static_transform_publisher" name="world_to_ur5_tf" args="$(arg x) $(arg y) $(arg z) $(arg R) $(arg P) $(arg Y) /world /base_link 100" />
 
     <!-- Load the controllers-->
 
-    <rosparam command="load" file="$(find trajectory_pkg)/config/ur5_eff_controllers.yaml"/>
+    <rosparam command="load" file="$(find ggcnn_pkg)/config/ur5_eff_controllers.yaml"/>
 
 
     <!-- Load the node controller manager-->
