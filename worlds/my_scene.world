@@ -32,7 +32,7 @@
 
     <include>
       <uri>model://lar_table_great</uri>
-      <pose>0 -0.5 0 0 0 0</pose> 
+      <pose>-0.5 0 0 0 0 1.57</pose> 
     </include>
   
     <scene>

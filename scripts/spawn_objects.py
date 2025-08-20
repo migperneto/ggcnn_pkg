@@ -18,57 +18,29 @@ def spawn_objects():
     ggcnn_pkg_path = '/home/miguel/miguel_ws/src/ggcnn_pkg'
 
     # Define positions and orientations for the objects
-    pos_bico_dosador = [-0.05, -0.5, 0.872]
+    pos_bico_dosador = [-0.5, 0.05, 0.872]    #-0.05, -0.5, 0.872
     ori_bico_dosador = [0.0, 0.0, 0.0]
 
-    pos_part1 = [-0.09, -0.47, 0.872]
+    pos_part1 = [-0.47, 0.09, 0.872]   #-0.09, -0.47, 0.872
     ori_part1 = [0.0, 0.0, 0.0]
 
-    pos_part2 = [-0.043, -0.46, 0.872]
-    ori_part2 = [0.0, 0.0, -1.57]
+    pos_part2 = [-0.46, 0.043, 0.872]   #-0.043, -0.46, 0.872
+    ori_part2 = [0.0, 0.0, 0.0]
 
-    pos_unob_1 = [-0.058, -0.41, 0.872]
+    pos_unob_1 = [-0.41, 0.058, 0.872]   #-0.058, -0.41, 0.872
     ori_unob_1 = [0.0, 0.0, 0.0]    
 
-    pos_unob_2 = [-0.13, -0.41, 0.872]
+    pos_unob_2 = [-0.41, 0.13, 0.872]    #-0.13, -0.41, 0.872
     ori_unob_2 = [0.0, 0.0, 0.0] 
 
-    pos_unob_3 = [-0.141, -0.45, 0.872]
-    ori_unob_3 = [0.0, 0.0, 0.0] 
+    pos_unob_3 = [-0.45, 0.141, 0.872]   #-0.141, -0.45, 0.872
+    ori_unob_3 = [0.0, 0.0, -1.57]   
 
-    pos_little_bin_box = [0.16, -0.45, 0.872]
+    pos_little_bin_box = [-0.45, -0.16, 0.872]    #0.16, -0.45, 0.872
     ori_little_bin_box = [0.0, 0.0, 0.0]
 
 
     objects_to_spawn_delete = [
-        # {"name": "bico dosador", "file": "models/bico_dosador/model.sdf",
-        #  "pos": {"x": -0.427131, "y": 0.003185, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "part1", "file": "models/part1/model.sdf",
-        #  "pos": {"x": -0.560503, "y": -0.221624, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "part2", "file": "models/part2/model.sdf",
-        #  "pos": {"x": -0.571972, "y": 0.200934, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "unob_1", "file": "models/unob_1/model.sdf",
-        #  "pos": {"x": -0.424412, "y": -0.143902, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "unob_2", "file": "models/unob_2/model.sdf",
-        #  "pos": {"x": -0.441868, "y": 0.201144, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "unob_3", "file": "models/unob_3/model.sdf",
-        #  "pos": {"x": -0.564329, "y": 0.006137, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": -1.57}},
-
-        # {"name": "little_bin_box", "file": "models/little_bin_box/model.sdf",
-        #  "pos": {"x": -0.8, "y": -0.009524, "z": 1.025},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
         {"name": "bico_dosador", "file": "models/bico_dosador/model.sdf",
          "pos": {"x": pos_bico_dosador[0], "y": pos_bico_dosador[1], "z": pos_bico_dosador[2]},
          "ori": {"roll": ori_bico_dosador[0], "pitch": ori_bico_dosador[1], "yaw": ori_bico_dosador[2]}},
@@ -96,39 +68,9 @@ def spawn_objects():
         {"name": "little_bin_box", "file": "models/little_bin_box/model.sdf",
          "pos": {"x": pos_little_bin_box[0], "y": pos_little_bin_box[1], "z": pos_little_bin_box[2]},
          "ori": {"roll": ori_little_bin_box[0], "pitch": ori_little_bin_box[1], "yaw": ori_little_bin_box[2]}},
-
-        # ... outros objetos
     ]
 
     objects_to_spawn = [
-        # {"name": "bico dosador", "file": "models/bico_dosador/model.sdf",
-        #  "pos": {"x": -0.427131, "y": 0.003185, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "part1", "file": "models/part1/model.sdf",
-        #  "pos": {"x": -0.560503, "y": -0.221624, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "part2", "file": "models/part2/model.sdf",
-        #  "pos": {"x": -0.571972, "y": 0.200934, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "unob_1", "file": "models/unob_1/model.sdf",
-        #  "pos": {"x": -0.424412, "y": -0.143902, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "unob_2", "file": "models/unob_2/model.sdf",
-        #  "pos": {"x": -0.441868, "y": 0.201144, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "unob_3", "file": "models/unob_3/model.sdf",
-        #  "pos": {"x": -0.564329, "y": 0.006137, "z": 1.045},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
-        # {"name": "little_bin_box", "file": "models/little_bin_box/model.sdf",
-        #  "pos": {"x": -0.8, "y": -0.009524, "z": 1.025},
-        #  "ori": {"roll": 0.0, "pitch": 0.0, "yaw": 0.0}},
-
         {"name": "bico_dosador", "file": "models/bico_dosador/model.sdf",
          "pos": {"x": pos_bico_dosador[0], "y": pos_bico_dosador[1], "z": pos_bico_dosador[2]},
          "ori": {"roll": ori_bico_dosador[0], "pitch": ori_bico_dosador[1], "yaw": ori_bico_dosador[2]}},
@@ -156,8 +98,6 @@ def spawn_objects():
         {"name": "little_bin_box", "file": "models/little_bin_box/model.sdf",
          "pos": {"x": pos_little_bin_box[0], "y": pos_little_bin_box[1], "z": pos_little_bin_box[2]},
          "ori": {"roll": ori_little_bin_box[0], "pitch": ori_little_bin_box[1], "yaw": ori_little_bin_box[2]}},
-
-        # ... outros objetos
     ]
 
     rospy.loginfo("Attempting to delete existing models...")

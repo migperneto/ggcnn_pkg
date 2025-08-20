@@ -9,7 +9,7 @@
     <arg name="z" default="0.871" /> <!-- 1.015 -->
     <arg name="R" default="0" />
     <arg name="P" default="0" />
-    <arg name="Y" default="1.57" /> <!-- 1.57 -->
+    <arg name="Y" default="0" /> <!-- 1.57 -->
     
     <arg name="world_file" default = "$(find ggcnn_pkg)/worlds/my_scene.world" />
 

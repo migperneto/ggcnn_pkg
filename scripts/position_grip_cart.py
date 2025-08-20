@@ -66,8 +66,11 @@ if __name__ == '__main__':
         # val = [-0.446, 0.109, 0.45]    # posição 
         # euler = [3.140, -0.190, 3.131]  # roll, pitch, yaw
 
-        val = [-0.446, 0.054, 0.415]    # posição 
-        euler = [3.135, -0.103, 3.130]  # roll, pitch, yaw
+        # val = [-0.446, 0.054, 0.415]    # posição 
+        # euler = [3.135, -0.103, 3.130]  # roll, pitch, yaw
+
+        val = [0.2709, -0.0473, 0.19]    # posição 
+        euler = [0, 0, 0]  # roll, pitch, yaw
 
         move_ur5_to_pose(val, euler)
         # rospy.sleep(0.2)
