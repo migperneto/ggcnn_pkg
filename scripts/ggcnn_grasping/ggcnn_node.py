@@ -104,7 +104,7 @@ class GGCNNNode:
 
 if __name__ == '__main__':
     try:
-        raw_input = input("Pressione Enter para iniciar o nó GG-CNN...")
+        input = input("Pressione Enter para iniciar o nó GG-CNN...")
 
         GGCNNNode()
     except rospy.ROSInterruptException:

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from .grasp import GraspRectangles, detect_grasps
+from grasp import GraspRectangles, detect_grasps
 
 
 def plot_output(rgb_img, depth_img, grasp_q_img, grasp_angle_img, no_grasps=1, grasp_width_img=None):

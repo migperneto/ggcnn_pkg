@@ -30,7 +30,7 @@
 
 
     <!-- publisher the transform tf for world and base_link of the robot -->
-    <node pkg="tf" type="static_transform_publisher" name="world_to_ur5_tf" args="$(arg x) $(arg y) $(arg z) $(arg R) $(arg P) $(arg Y) /world /base_link 100" />
+    <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_ur5_tf" args="$(arg x) $(arg y) $(arg z) $(arg R) $(arg P) $(arg Y) /world /base_link 100" /> -->
 
 
     <group ns="camera"> 
@@ -57,9 +57,9 @@
     </group>
 
     <!-- Launch the objects -->
-    <include file="$(find ggcnn_pkg)/launch/spawn_objects.launch" />
+    <!-- <include file="$(find ggcnn_pkg)/launch/spawn_objects.launch" /> -->
 
-    <!-- Lançar os objetos no mundo gazebo -->
+    <!-- Lançar spawn_table no mundo gazebo -->
     <!-- <node pkg="ggcnn_pkg" type="spawn_objects.py" name="spawn_table_node" output="screen">      
     </node> -->
 

@@ -1,6 +1,10 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Importações para resumo do modelo
+from torchsummary import summary 
+from torchinfo import summary
+
 filter_sizes = [32, 16, 8, 8, 16, 32]
 kernel_sizes = [9, 5, 3, 3, 5, 9]
 strides = [3, 2, 2, 2, 2, 3]
@@ -68,3 +72,18 @@ class GGCNN(nn.Module):
                 'width': width_pred
             }
         }
+
+
+
+# este método utiliza o "from torchsummary import summary"
+# model = GGCNN(input_channels=1)
+# summary(model, (1, 300, 300))
+
+# este método utiliza o "from torchinfo import summary"
+# model = GGCNN(input_channels=1)
+# summary(model, input_size=(1, 1, 300, 300))
+
+# este método utiliza o "from torchinfo import summary" (Mais completo)
+# model = GGCNN(input_channels=1)
+# summary(model, input_size=(1, 1, 300, 300), verbose=2, 
+#         col_names=["input_size", "output_size", "num_params"])

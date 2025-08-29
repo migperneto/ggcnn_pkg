@@ -42,7 +42,9 @@ if __name__ == '__main__':
     try:
         # position_joint =  [-1.0054704413213962, -1.5801199410581797, 0.00089008570573057, -1.9367237375089363, 1.5699304075994247, -1.5595961735668054]   # posição 1 de preensão
         # position_joint = [-1.83, -1.453, 0.00, -1.26, 1.57, -1.56] # posição 2 de preensão
-        position_joint = [-1.76, -1.43, 0.13, -1.41, 1.55, -1.43]
+        # position_joint = [-1.76, -1.43, 0.13, -1.41, 1.55, -1.43]
+        position_joint = [-1.954, -1.337, 0.033, -1.563, 1.552, -1.526]
+
         move_ur5_to_pose(position_joint)
     except rospy.ROSInterruptException:
         pass

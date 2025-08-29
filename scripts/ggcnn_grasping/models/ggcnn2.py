@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Importações para resumo do modelo
+# from torchsummary import summary 
+# from torchinfo import summary
 
 class GGCNN2(nn.Module):
     def __init__(self, input_channels=1, filter_sizes=None, l3_k_size=5, dilations=None):
@@ -87,3 +90,18 @@ class GGCNN2(nn.Module):
                 'width': width_pred
             }
         }
+
+
+
+# este método utiliza o "from torchsummary import summary"
+# model = GGCNN2(input_channels=1)
+# summary(model, (1, 300, 300))
+
+# este método utiliza o "from torchinfo import summary"
+# model = GGCNN2(input_channels=1)
+# summary(model, input_size=(1, 1, 300, 300))
+
+# este método utiliza o "from torchinfo import summary" (Mais completo)
+# model = GGCNN(input_channels=1)
+# summary(model, input_size=(1, 1, 300, 300), verbose=2, 
+#         col_names=["input_size", "output_size", "num_params"])

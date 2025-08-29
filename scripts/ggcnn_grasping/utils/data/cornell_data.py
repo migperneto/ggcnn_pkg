@@ -1,7 +1,7 @@
 import os
 import glob
 
-from .grasp_data import GraspDatasetBase
+from grasp_data import GraspDatasetBase
 from utils.dataset_processing import grasp, image
 
 
